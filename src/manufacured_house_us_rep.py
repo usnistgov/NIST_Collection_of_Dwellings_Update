@@ -4,6 +4,9 @@ Purpose: Analyzes manufactured housing representation in RECS 2020 or AHS 2021 s
          mobile home) to Excel and CSV for use by ahs21_weighted_average.py.
 Author: Nathan Lima
 Created: 2023-12-11
+Updated:
+    2026-10-08: Replaced the placeholder #_of_units value for TYPEHUQ 5 records with
+                building_units == 1 (now code "1").
 """
 import json
 from pathlib import Path

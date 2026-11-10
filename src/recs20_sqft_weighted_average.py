@@ -3,6 +3,11 @@ Purpose: Computes square-footage-weighted averages of dwelling characteristics f
          2020 or AHS 2021 survey data and visualizes results using Bokeh.
 Author: Nathan Lima
 Created: 2023-09-15
+Updated:
+    2026-10-08: Replaced the placeholder #_of_units value for TYPEHUQ 5 records with
+                building_units == 1 (now code "1").
+                Apartment strata ap3 and ap4 are selected by explicit codes
+                "2" through "5" instead of a string comparison.
 """
 import json
 from pathlib import Path

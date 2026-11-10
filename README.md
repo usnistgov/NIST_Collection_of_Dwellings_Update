@@ -4,7 +4,7 @@ Python scripts for processing American Housing Survey (AHS) and Residential Ener
 
 ## Overview
 
-This repository contains analysis scripts developed in support of NIST TN 2329, "A Collection of Dwellings to Represent the U.S. Dwelling Stock: 2024 Update." The scripts process publicly available federal housing survey data (RECS 2020, AHS 2021) to produce weighted distributions of dwelling characteristics used to select representative prototypes for building energy and indoor air quality modeling.
+This repository contains analysis scripts developed in support of NIST TN 2329, "A Collection of Dwellings to Represent the U.S. Dwelling Stock: 2024 Update." The scripts process federal housing survey data (RECS 2020 and AHS 2021; three scripts also accept RECS 2015 and AHS 2019) to produce weighted distributions of dwelling characteristics used to select representative prototypes for building energy and indoor air quality modeling.
 
 Key capabilities:
 
@@ -35,14 +35,11 @@ NIST_Collection_of_Dwellings_Update/
 │   ├── recs_characteristic_distribution.py          # RECS dwelling characteristic distributions
 │   ├── recs_characteristic_distribution_test(ahs).py  # RECS vs. AHS validation
 │   ├── recs_characteristic_distribution_test(year).py # Year-over-year comparison
-│   ├── update_values_recs97.py           # RECS 1997 data processing
+│   ├── update_values_recs97.py           # 1997-style groupings applied to RECS 2020 or AHS 2021
 │   ├── us_air_leakage_distribution.py    # U.S. air leakage distribution analysis
 │   └── wap_calc.py                       # Weatherization Assistance Program calculations
 │
-├── data/                             # Data directory (not committed; see data_config.json)
-│   ├── raw/                          # Immutable source data (RECS, AHS CSV files)
-│   ├── processed/                    # Derived data files
-│   └── metadata/                     # Data dictionaries and documentation
+├── data/                             # Survey data (not committed; layout under Data Sources)
 │
 ├── results/                          # Analysis outputs (not committed)
 │   ├── figures/                      # Generated plots
@@ -52,6 +49,8 @@ NIST_Collection_of_Dwellings_Update/
 ├── environment.yaml                  # Conda environment specification
 ├── data_config.json                  # Local data paths (gitignored)
 ├── data_config.template.json         # Template for data configuration
+├── CHANGELOG.md                      # Version history
+├── CITATION.cff                      # Citation metadata
 ├── CODEMETA.yaml                     # NIST Software Portal metadata
 ├── CODEOWNERS                        # Repository ownership
 ├── LICENSE.md                        # NIST software licensing statement
@@ -64,7 +63,7 @@ NIST_Collection_of_Dwellings_Update/
 ### 1. Clone the Repository
 
 ```bash
-git clone git@github.com:NathanL-CodeBase/NIST_Collection_of_Dwellings_Update.git
+git clone git@github.com:usnistgov/NIST_Collection_of_Dwellings_Update.git
 cd NIST_Collection_of_Dwellings_Update
 ```
 
@@ -94,10 +93,26 @@ Edit `data_config.json` and set the paths for your machine:
 
 ## Data Sources
 
-Download the following public datasets and place them under `data/raw/`:
+The scripts read survey files from the folder set as `data_dir` in `data_config.json`, using this layout:
 
-- **RECS 2020**: [EIA Residential Energy Consumption Survey](https://www.eia.gov/consumption/residential/) — `recs2020_public_v2.csv`
-- **AHS 2021**: [U.S. Census American Housing Survey](https://www.census.gov/programs-surveys/ahs.html) — `household.csv`
+```
+<data_dir>/
+├── recs_data/
+│   ├── 2015/recs2015_public_v4.csv
+│   └── 2020/
+│       ├── recs2020_public_v1_data.csv
+│       ├── recs2020_public_v2.csv
+│       └── RECS2020_NIST.csv
+└── ahs_data/
+    ├── 2019/household.csv
+    └── 2021/household.csv
+```
+
+- **RECS 2015 and RECS 2020 public microdata**: [EIA Residential Energy Consumption Survey](https://www.eia.gov/consumption/residential/)
+- **AHS 2019 and AHS 2021 household files**: [U.S. Census American Housing Survey](https://www.census.gov/programs-surveys/ahs.html)
+- **`RECS2020_NIST.csv`**: a RECS 2020 file prepared for NIST that is not public. It carries `building_units`, the number of units in the building, which the public microdata does not include. The RECS 2020 mode of `characteristic_distribution.py`, `manufacured_house_us_rep.py`, `recs20_sqft_weighted_average.py`, and `update_values_recs97.py` reads this file and cannot be run without it. The AHS 2021 mode of the same scripts uses the public `household.csv`.
+
+`data_config.template.json` lists every file the scripts expect, including the 1997 files used for historical comparison.
 
 ## Usage
 
@@ -106,15 +121,19 @@ Activate the conda environment and run scripts from the repository root:
 ```bash
 conda activate cod
 
-# Dwelling characteristic distributions from RECS 2020
+# Dwelling characteristic distributions from RECS 2020 (needs RECS2020_NIST.csv)
 python src/characteristic_distribution.py
 
-# Square-footage-weighted averages
+# Square-footage-weighted averages (needs RECS2020_NIST.csv in RECS 2020 mode)
 python src/recs20_sqft_weighted_average.py
 
 # AHS vs. RECS comparison
 python src/ahs_recs_data_comparison.py
 ```
+
+## Version History
+
+See [CHANGELOG.md](CHANGELOG.md). Version 1.0.1 corrects categorical mappings in seven scripts; outputs from the affected code paths differ from version 1.0.0.
 
 ## Citation
 

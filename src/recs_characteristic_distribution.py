@@ -4,6 +4,9 @@ Purpose: Computes weighted dwelling characteristic distributions from RECS 2015,
          percentage-coverage HTML plot.
 Author: Nathan Lima
 Created: 2023-05-03
+Updated:
+    2026-10-08: Added the BATHROOMS code '07' mapping to the AHS 2019 branch
+                (0 full, 1 half), matching the AHS 2021 branch.
 """
 import json
 from pathlib import Path

@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "A Collection of Dwellings to Represent the U.S. Housing Stock (2024 Update) Associated Python Scripts"
-version: "1.0.0"
-date-released: "2024-09-04"
+version: "1.0.1"
+date-released: "2026-11-10"
 authors:
   - family-names: Lima
     given-names: Nathan M.

@@ -4,6 +4,11 @@ Purpose: Validates RECS characteristic distributions against AHS data with AHS-s
          RECS 2015, RECS 2020, AHS 2019, and AHS 2021.
 Author: Nathan Lima
 Created: 2023-05-03
+Updated:
+    2026-10-08: Corrected RECS 2015 floor_area codes for attached and detached homes
+                (1,500 to 2,490 ft^2 is "2"; 2,500 ft^2 or more is "3").
+                Added the BATHROOMS code '07' mapping to the AHS 2019 branch
+                (0 full, 1 half).
 """
 import json
 from pathlib import Path

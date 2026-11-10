@@ -4,6 +4,11 @@ Purpose: Computes weighted distributions of dwelling characteristics from RECS 2
          a Bokeh percentage-coverage HTML plot.
 Author: Nathan Lima
 Created: 2023-05-03
+Updated:
+    2026-10-08: Clamped the AHS basement story adjustment at 1 so one-story homes
+                with a full basement keep a #_of_floors value.
+                Replaced the placeholder #_of_units value for TYPEHUQ 5 records with
+                building_units == 1 (now code "1").
 """
 import json
 from pathlib import Path

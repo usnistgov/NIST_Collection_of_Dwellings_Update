@@ -4,6 +4,10 @@ Purpose: Applies 1997 RECS characteristic groupings to RECS 2020 or AHS 2021 sur
          historical comparison.
 Author: Nathan Lima
 Created: 2023-09-12
+Updated:
+    2026-10-08: Corrected the AHS year-built group for YRBUILT == 1980 (now group 3).
+                Replaced the placeholder #_of_units value for TYPEHUQ 5 records with
+                building_units == 1 (now code "1").
 """
 import json
 from pathlib import Path
